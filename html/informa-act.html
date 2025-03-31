@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Informa tu actividad</title>
+</head>
+<body>
+    <div class="container">
+        <form class="formulario" id="info-act-form">
+            <fieldset>
+                <legend>¿Dónde?</legend>
+                <label for="region">Seleccione una región</label>
+                <select id="region" name="region" required>
+                    <option value="">--Selecciona Región--</option>
+                </select>
+                <br>
+                <label for="comuna">Seleccione una comuna</label>
+                <select id="comuna" name="comuna" required>
+                    <option value="">--Selecciona Comuna--</option>
+                </select>
+                <br>
+                <div id="sector-input" class="grupo-input">
+                    <label for="sector">Sector</label>
+                    <input id="sector" name="sector" type="text" maxlength="100">
+                </div>  
+            </fieldset>
+            <fieldset>
+                <legend>¿Quien organiza?</legend>
+                <div id="nombre-input" class="grupo-input">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" type="text" maxlength="200" required>
+                </div>
+                <br>
+                <div id="mail-input" class="grupo-input">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" maxlength="100" required>
+                </div>
+                <br>
+                <div id="numero-input" class="grupo-input">
+                    <label for="numero">Número de celualar</label>
+                    <input id="numero" name="numero" type="tel" maxlength="100">
+                </div>
+                <br>
+                <label for="contacto">Contactar por: </label>
+                <select id="contacto" name="contacto">
+                    <option value="">--Seleccione Red Social--</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="x">X</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="otra">Otra</option>
+                </select>
+                <br>
+                <div id="contacto-input" class="grupo-input">
+                    <label for="contactoinput">Id contacto o URL red social</label>
+                    <input id="contactoinput" name="contactoinput" type="text" minlength="4" maxlength="50">
+                </div>
+                
+            </fieldset>
+            <fieldset>
+                <legend>¿Cuándo y de qué trata?</legend>
+                <div id="fecha-hora-inicio-input" class="grupo-input">
+                    <label for="fechayhorai">Fecha y hora de inicio</label>
+                    <input id="fechayhorai" name="fechayhorai" type="datetime-local" required>
+                </div>
+                <br>
+                <div id="fecha-hora-final-input" class="grupo-input">
+                    <label for="fechayhoraf">Fecha y hora de termino</label>
+                    <input id="fechayhoraf" name="fechayhoraf" type="datetime-local" required>
+                </div>
+                <br>
+                <div id="descripcion-input" class="grupo-input">
+                    <label for="descripcion">Descripción</label>
+                    <textarea name="" id="descripcion-text-area" cols="30" rows="5"></textarea>
+                </div>
+                <label for="tema">Tema: </label>
+                <select id="tema" name="tema" required>
+                    <option value="">--Seleccione Tema--</option>
+                    <option value="musica">Música</option>
+                    <option value="deporte">Deporte</option>
+                    <option value="ciencias">Ciencias</option>
+                    <option value="religion">Religión</option>
+                    <option value="politica">Política</option>
+                    <option value="tecnologia">Tecnología</option>
+                    <option value="juegos">Juegos</option>
+                    <option value="baile">Baile</option>
+                    <option value="comida">Comida</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <br>
+                <div id="tema-otro-input" class="grupo-input">
+                    <label for="tema-otro" style="display: none;">¿Cuál?</label>
+                    <input id="tema-otro" name="tema-otro" type="text" style="display: none;" minlength="3" maxlength="15" required>
+                </div>
+                <br>
+                <div id="foto-input" class="grupo-input">
+                    <label for="files">Fotos</label>
+                    <input type="file" name="files" id="files" multiple accept="image/*" required><br>
+                    <button id="agrega-foto-btn" type="button">Agregar otra foto</button>
+                </div>
+                <button id="submit-btn" type="button">Enviar</button>
+
+
+
+
+
+
+
+            </fieldset>
+
+
+        </form>
+    </div>
+</body>
+
+
+
+</html>
