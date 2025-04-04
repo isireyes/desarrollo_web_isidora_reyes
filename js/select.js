@@ -70,7 +70,7 @@ const region_comuna = {
 const regionSelect = document.getElementById("region");
 const comunaSelect = document.getElementById("comuna");
 
-    // Llenar regiones al cargar la página
+    
 for (let region in region_comuna.regiones) {
     let option = document.createElement("option");
     option.value = region;
@@ -78,10 +78,10 @@ for (let region in region_comuna.regiones) {
     regionSelect.appendChild(option);
     }
 
-    // Cambiar comunas al seleccionar región
+   
 regionSelect.addEventListener("change", function() {
     const selectedRegion = this.value;
-    comunaSelect.innerHTML = '<option value="">-- Selecciona una comuna --</option>'; // Reiniciar comunas
+    comunaSelect.innerHTML = '<option value="">-- Selecciona una comuna --</option>'; 
 
     if (selectedRegion && region_comuna.regiones[selectedRegion]) {
         const comunas = region_comuna.regiones[selectedRegion].comunas;
