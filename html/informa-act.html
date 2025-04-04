@@ -5,17 +5,23 @@
 </head>
 <body>
     <h1>Informa una actividad</h1>
-    <div class="container">
-        <form class="formulario" id="info-act-form">
+    <div class="main-container">
+
+        <div id="val-box" hidden>
+            <h2 id="val-msg"></h2>
+            <ul id="val-list"></ul>
+        </div>
+
+        <form class="formulario" id="info-act-form" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>¿Dónde?</legend>
                 <label for="region">Seleccione una región</label>
-                <select id="region" name="region" required>
+                <select id="region" name="region" required >
                     <option value="">--Selecciona Región--</option>
                 </select>
                 <br>
                 <label for="comuna">Seleccione una comuna</label>
-                <select id="comuna" name="comuna" required>
+                <select id="comuna" name="comuna"  required>
                     <option value="">--Selecciona Comuna--</option>
                 </select>
                 <br>
@@ -41,20 +47,22 @@
                     <input id="numero" name="numero" type="tel" maxlength="100">
                 </div>
                 <br>
-                <label for="contacto">Contactar por: </label>
-                <select id="contacto" name="contacto">
-                    <option value="">--Seleccione Red Social--</option>
-                    <option value="whatsapp">WhatsApp</option>
-                    <option value="telegram">Telegram</option>
-                    <option value="x">X</option>
-                    <option value="tiktok">TikTok</option>
-                    <option value="otra">Otra</option>
-                </select>
-                <br>
-                <div id="contacto-input" class="grupo-input">
-                    <label for="contactoinput">Id contacto o URL red social</label>
-                    <input id="contactoinput" name="contactoinput" type="text" minlength="4" maxlength="50">
+                <div id="contactos" >
+                    <label for="contacto">Contactar por: </label><br>
+                    <input type="checkbox" name="whatsapp" onclick="revisaCheck(this);"> WhatsApp
+                    <input id="whatsapp" type="text" name="whatsapp-id" style="display:none;" minlength="4" maxlength="50"> <br>
+                    <input type="checkbox" name="instagram" onclick="revisaCheck(this);"> Instagram
+                    <input id="instagram" type="text" name="instagram-id" style="display:none;" minlength="4" maxlength="50"><br>
+                    <input type="checkbox" name="tiktok" onclick="revisaCheck(this);"> TikTok
+                    <input id="tiktok" type="text" name="tiktok-id" style="display:none;" minlength="4" maxlength="50"><br>
+                    <input type="checkbox" name="telegram" onclick="revisaCheck(this);"> Telegram
+                    <input id="telegram" type="text" name="telegram-id" style="display:none;" minlength="4" maxlength="50"><br>
+                    <input type="checkbox" name="x" onclick="revisaCheck(this);"> X
+                    <input id="x" type="text" name="x-id" style="display:none;" minlength="4" maxlength="50"><br>
+                    <input type="checkbox" name="otro" onclick="revisaCheck(this);"> Otro
+                    <input id="otro" type="text" name="otro-id" style="display:none;" minlength="4" maxlength="50">
                 </div>
+                <br>
                 
             </fieldset>
             <fieldset>
@@ -71,49 +79,49 @@
                 <br>
                 <div id="descripcion-input" class="grupo-input">
                     <label for="descripcion">Descripción</label>
-                    <textarea name="" id="descripcion-text-area" cols="30" rows="5"></textarea>
+                    <textarea name="" id="descripcion-text-area" cols="50" rows="10"></textarea>
                 </div>
-                <label for="tema">Tema: </label>
-                <select id="tema" name="tema" required>
-                    <option value="">--Seleccione Tema--</option>
-                    <option value="musica">Música</option>
-                    <option value="deporte">Deporte</option>
-                    <option value="ciencias">Ciencias</option>
-                    <option value="religion">Religión</option>
-                    <option value="politica">Política</option>
-                    <option value="tecnologia">Tecnología</option>
-                    <option value="juegos">Juegos</option>
-                    <option value="baile">Baile</option>
-                    <option value="comida">Comida</option>
-                    <option value="otro">Otro</option>
-                </select>
-                <br>
-                <div id="tema-otro-input" class="grupo-input">
-                    <label for="tema-otro" style="display: none;">¿Cuál?</label>
-                    <input id="tema-otro" name="tema-otro" type="text" style="display: none;" minlength="3" maxlength="15" required>
+                <div id="tema" >
+                    <label for="tema">Tema: </label>
+                    <input type="checkbox" name="musica" onclick="revisaCheck(this);"> Música
+                    <input type="checkbox" name="deporte" onclick="revisaCheck(this);"> Deporte                    
+                    <input type="checkbox" name="ciencias" onclick="revisaCheck(this);"> Ciencias                    
+                    <input type="checkbox" name="religion" onclick="revisaCheck(this);"> Religión                  
+                    <input type="checkbox" name="politica" onclick="revisaCheck(this);"> Política                   
+                    <input type="checkbox" name="tecnologia" onclick="revisaCheck(this);"> Tecnología                   
+                    <input type="checkbox" name="juegos" onclick="revisaCheck(this);"> Juegos                   
+                    <input type="checkbox" name="baile" onclick="revisaCheck(this);"> Baile                   
+                    <input type="checkbox" name="comida" onclick="revisaCheck(this);"> Comida
+                    <input type="checkbox" name="otro-tema" onclick="mostrarInputOtro(this)";"> Otro
+                    <input id="otro-tema" type="text" name="otro-tema-id" style="display:none;" minlength="3" maxlength="15">
                 </div>
+                
                 <br>
-                <div id="foto-input" class="grupo-input">
+                <div id="fotos">
                     <label for="files">Fotos</label>
-                    <input type="file" name="files" id="files" multiple accept="image/*" required><br>
-                    <button id="agrega-foto-btn" type="button">Agregar otra foto</button>
+                    <div class="foto-input">
+                        <input type="file" name="foto[]" accept="image/*" required>
+                    </div>
+                    <div class="foto-input" style="display:none;">
+                        <input type="file" name="foto[]" accept="image/*">
+                    </div>
+                    <div class="foto-input" style="display:none;">
+                        <input type="file" name="foto[]" accept="image/*">
+                    </div>
+                    <div class="foto-input" style="display:none;">
+                        <input type="file" name="foto[]" accept="image/*">
+                    </div>
+                    <div class="foto-input" style="display:none;">
+                        <input type="file" name="foto[]" accept="image/*">
+                    </div>
+                    <button type="button" id="agregar-foto-btn" onclick="mostrarSiguienteInput()">Agregar otra foto</button>
                 </div>
-                <button id="submit-btn" type="button">Enviar</button>
-
-
-
-
-
-
-
             </fieldset>
-
-
+            <button id="submit-btn" type="button">Agregar actividad</button>
         </form>
     </div>
-    <script lang="javascript" src="../js/informa-act.js"></script>
+    <script lang="javascript" src="/js/select.js"></script>
+    <script lang="javascript" src="/js/informa-act.js"></script>
+    
 </body>
-
-
-
 </html>
