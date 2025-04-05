@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Informacion de actividad</title>
+        <link rel="stylesheet" href="actividades.css">
+    </head>
+    <body>
+        <h1>Información de actividad</h1>
+        <div class="main-container">
+            <div class="infocontainer">
+                <fieldset>
+                    <legend>¿Dónde?</legend>
+                    <label>Region: Región de los Lagos</label>
+                    <br>
+                    <label>Comuna: Cochamó</label>
+                    <br>
+                    <label>Sector: Rivendel</label>
+                    <br>
+                </fieldset>
+                <fieldset>
+                    <legend>¿Quién organiza?</legend>
+                    <label>Nombre: Elrond</label>
+                    <br>
+                    <label>email: elrond_riv@gmail.com</label>
+                    <br>
+                    <label>Número de celular: +56932674192</label>
+                    <br>
+                    <label>Contactar por: WhatsApp -> +56932674192</label>
+                </fieldset>
+                <fieldset>
+                    <legend>¿Cuándo y de qué se trata?</legend>
+                    <label>Fecha y hora de inicio: 2025-12-18 16:00 </label>
+                    <br>
+                    <label>Fecha y hora de termino: 2025-12-18 19:00</label>
+                    <br>
+                    <label>Descripción: Reunion de comunidad para tomar una gran desición respecto a un artefacto.</label>
+                    <br>
+                    <label>Tema: Política, Reunión </label>
+                    <br>
+                </fieldset>
+            </div>
+            <div class="fotocontainer">
+                <fieldset>
+                    <legend>Fotos</legend>
+                    <div>
+                        <img src="reunion1.jpg" alt="Imagen 1" class="thumbnail" onclick="openModal(this)">
+                        <img src="reunion2.jpg" alt="Imagen 2" class="thumbnail" onclick="openModal(this)">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <img class="modal-content" id="img01" src="https://via.placeholder.com/800x600?text=Imagen+No+Cargada" alt="imagen">
+        </div>
+        <div class="volver-container">
+            <button type="button" id="btn-listado">Volver</button>
+        </div>
+        <script src="abrefoto.js"></script>
+    </body>
+</html>

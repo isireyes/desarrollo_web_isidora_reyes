@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Informacion de actividad</title>
+        <link rel="stylesheet" href="actividades.css">
+    </head>
+    <body>
+        <h1>Información de actividad</h1>
+        <div class="main-container">
+            <div class="infocontainer">
+                <fieldset>
+                    <legend>¿Dónde?</legend>
+                    <label>Region: Región de Antofagasta</label>
+                    <br>
+                    <label>Comuna: Sierra Gorda</label>
+                    <br>
+                    <label>Sector: Minas Moria</label>
+                    <br>
+                </fieldset>
+                <fieldset>
+                    <legend>¿Quién organiza?</legend>
+                    <label>Nombre: Gimli hijo de Gloin</label>
+                    <br>
+                    <label>email: gimli_enano1@gmail.com</label>
+                    <br>
+                    <label>Número de celular: +56932114182</label>
+                    <br>
+                    <label>Contactar por: Instagram -> @hacha_gimli</label>
+                </fieldset>
+                <fieldset>
+                    <legend>¿Cuándo y de qué se trata?</legend>
+                    <label>Fecha y hora de inicio: 2026-01-13 22:00 </label>
+                    <br>
+                    <label>Fecha y hora de termino: 2025-01-16 16:00</label>
+                    <br>
+                    <label>Descripción: Visita guiada nocturna en las minas de mi primo. Cuenta como trekking de dificultad alta.</label>
+                    <br>
+                    <label>Tema: Deporte, Visita guiada </label>
+                    <br>
+                </fieldset>
+            </div>
+            <div class="fotocontainer">
+                <fieldset>
+                    <legend>Fotos</legend>
+                    <div>
+                        <img src="moria1.jpg" alt="Imagen 1" class="thumbnail" onclick="openModal(this)">
+                        <img src="moria2.jpg" alt="Imagen 2" class="thumbnail" onclick="openModal(this)">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <img class="modal-content" id="img01" src="https://via.placeholder.com/800x600?text=Imagen+No+Cargada" alt="imagen">
+        </div>
+        <div class="volver-container">
+            <button type="button" id="btn-listado">Volver</button>
+        </div>
+        <script src="abrefoto.js"></script>
+    </body>
+</html>

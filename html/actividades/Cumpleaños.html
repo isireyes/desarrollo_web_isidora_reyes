@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Informacion de actividad</title>
+        <link rel="stylesheet" href="actividades.css">
+    </head>
+    <body>
+        <h1>Información de actividad</h1>
+        <div class="main-container">
+            <div class="infocontainer">
+                <fieldset>
+                    <legend>¿Dónde?</legend>
+                    <label>Region: Región de los Lagos</label>
+                    <br>
+                    <label>Comuna: Puerto Varas</label>
+                    <br>
+                    <label>Sector: La Comarca</label>
+                    <br>
+                </fieldset>
+                <fieldset>
+                    <legend>¿Quién organiza?</legend>
+                    <label>Nombre: Bilbo Baggins</label>
+                    <br>
+                    <label>email: bilbo_baggins1@gmail.com</label>
+                    <br>
+                    <label>Número de celular: +56983246743</label>
+                    <br>
+                    <label>Contactar por: Instagram -> @bilbo.aventurero </label>
+                </fieldset>
+                <fieldset>
+                    <legend>¿Cuándo y de qué se trata?</legend>
+                    <label>Fecha y hora de inicio: 2025-09-22 19:00 </label>
+                    <br>
+                    <label>Fecha y hora de termino: 2025-09-22 22:00</label>
+                    <br>
+                    <label>Descripción: Celebración de mi cumpleaños 111 en mi casa. Los Sackville-Baggins no están invitados.</label>
+                    <br>
+                    <label>Tema: Baile, Comida, Cumpleaños </label>
+                    <br>
+                </fieldset>
+            </div>
+            <div class="fotocontainer">
+                <fieldset>
+                    <legend>Fotos</legend>
+                    <div>
+                        <img src="cumpleaños1.jpg" alt="Imagen 1" class="thumbnail" onclick="openModal(this)">
+                        <img src="cumpleaños2.jpg" alt="Imagen 2" class="thumbnail" onclick="openModal(this)">
+                        <img src="cumpleaños3.jpg" alt="Imagen 3" class="thumbnail" onclick="openModal(this)">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="img01" src="https://via.placeholder.com/800x600?text=Imagen+No+Cargada" alt="imagen">
+        </div>
+        <div class="volver-container">
+            <button type="button" id="btn-listado">Volver</button>
+        </div>
+        <script src="abrefoto.js"></script>
+    </body>
+</html>
