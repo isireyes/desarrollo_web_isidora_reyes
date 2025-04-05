@@ -13,6 +13,10 @@ function openModal(imgElement) {
   }
 
 let btnlista = document.getElementById("btn-listado")
+let btnportada = document.getElementById("btn-portada")
 btnlista.addEventListener("click", function() {
-    window.location.href = "../listado.html";
+  window.location.href = "../listado.html";
+});
+btnportada.addEventListener("click", function(){
+  window.location.href ="../portada.html";
 });
