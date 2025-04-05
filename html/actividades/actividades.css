@@ -8,7 +8,8 @@ body {
   h1 {
     text-align: center;
     margin: 20px 0;
-    color: #1b1b1b;
+    color: #2c2c2c;
+    font-size: 50px;
   }
   
   .main-container {
