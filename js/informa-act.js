@@ -1,7 +1,7 @@
 //Validaciones:
 const validateName = (name) => {
     if(!name) return false;
-    let lengthValid = name.trim().length <= 200;
+    let lengthValid = name.trim().length < 200;
     
     return lengthValid;
   };
@@ -61,14 +61,14 @@ const validateFiles = () => {
     const fotoInputs = document.querySelectorAll('.foto-input input[type="file"]');
     let filesArray = [];
 
-    // Obtener todos los archivos de los campos de foto
+    
     fotoInputs.forEach(input => {
         if (input.files.length > 0) {
-            filesArray.push(...input.files); // Añadir los archivos al array
+            filesArray.push(...input.files); 
         }
     });
 
-    // Validar que al menos un archivo se haya seleccionado
+    
     return filesArray.length > 0;
 };
 
@@ -77,15 +77,15 @@ const validateTheme = () => {
     const otroCheckbox = document.querySelector("#tema input[type='checkbox'][name='otro-tema']"); 
     const otroInput = document.getElementById("otro-tema-id");
 
-    // Validar si se seleccionó "Otro"
+    
     if (otroCheckbox && otroCheckbox.checked) {
-        // Verificar que el input de "Otro" tenga entre 3 y 15 caracteres
+        
         if (otroInput.value.trim().length < 3 || otroInput.value.trim().length > 15) {
             return false;
         }
     }
 
-    // Validar que al menos un checkbox esté seleccionado
+    
     return checkboxes.length >= 1;
 };
  
@@ -181,7 +181,6 @@ const validateForm = (event) => {
     let invalidInputs = [];
 
     let formulario = document.getElementById("info-act-form")
-    /* aqui deberia ir lo de region-comuna */
     let sector = document.getElementById("sector").value;
     let nombre = document.getElementById("nombre").value;
     let email = document.getElementById("email").value;
@@ -263,8 +262,8 @@ const validateForm = (event) => {
       // hacer visible el mensaje de validación
       validationBox.hidden = false;
       validationListElem.scrollIntoView({
-        behavior: 'smooth',   // Desplazamiento suave
-        block: 'center'       // Centra el elemento en la vista
+        behavior: 'smooth',   
+        block: 'center'       
     });
 
     } else {
