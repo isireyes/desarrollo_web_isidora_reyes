@@ -246,20 +246,16 @@ const validateForm = (event) => {
 
     validationListElem.textContent = "";
     if (!isValid) {
-      // agregar elementos inválidos al elemento val-list.
+      
       for (input of invalidInputs) {
         let listElement = document.createElement("li");
         listElement.innerText = input;
         validationListElem.append(listElement);
       }
-      // establecer val-msg
+      
       validationMessageElem.innerText = "Los siguientes campos son inválidos:";
-  
-      // aplicar estilos de error
       validationBox.style.backgroundColor = "#ffdddd";
       validationBox.style.borderLeftColor = "#f44336";
-  
-      // hacer visible el mensaje de validación
       validationBox.hidden = false;
       validationListElem.scrollIntoView({
         behavior: 'smooth',   
@@ -267,7 +263,6 @@ const validateForm = (event) => {
     });
 
     } else {
-      // establecer mensaje de éxito
         validationMessageElem.innerText = "¿Está seguro que desea agregar esta actividad?";
         validationListElem.textContent = "";
         validationBox.style.backgroundColor = "#ddffdd";
@@ -276,7 +271,6 @@ const validateForm = (event) => {
         formulario.style.display = "none";
   
   
-      // Agregar botones para enviar el formulario o volver
       let submitButton = document.createElement("button");
       submitButton.innerText ="Sí, estoy seguro";
       submitButton.style.marginRight = "10px";
@@ -293,7 +287,6 @@ const validateForm = (event) => {
       let backButton = document.createElement("button");
       backButton.innerText = "No, quiero volver al formulario";
       backButton.addEventListener("click", () => {
-        // Mostrar el formulario nuevamente
         formulario.style.display = "block";
         validationBox.hidden = true;
       });
@@ -309,8 +302,6 @@ const validateForm = (event) => {
   submitBtn.addEventListener("click", validateForm);
   
 
-
-//document.getElementById("info-act-form").addEventListener("submit", validateForm);
 
 
 

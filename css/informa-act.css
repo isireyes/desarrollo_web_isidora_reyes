@@ -1,5 +1,5 @@
 body {
-    font-family: Times New Roman, sans-serif;
+    font-family: "Times New Roman", sans-serif;
     margin: 0;
     padding: 2rem;
     background-color: #b9e580;
@@ -13,9 +13,9 @@ body {
     font-size: 50px;
   }
   .main-container fieldset {
-    width: 100%;  /* Que ocupe el 100% del ancho disponible */
-    max-width: 600px;  /* Limitar el ancho de los fieldset */
-    margin: 1rem auto;  /* Espaciado entre cada fieldset y centrado */
+    width: 100%;  
+    max-width: 600px;  
+    margin: 1rem auto;  
     padding: 1rem;
     border: 2px solid #ddd;
     background-color: #fff;

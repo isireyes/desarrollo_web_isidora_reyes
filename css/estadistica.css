@@ -1,5 +1,5 @@
 body {
-    font-family: Times New Roman, sans-serif;
+    font-family: "Times New Roman", sans-serif;
     margin: 0;
     padding: 2rem;
     background-color: #b9e580;
@@ -13,16 +13,16 @@ body {
     font-size: 50px;
   }
   .fotitos img {
-    width: 100%;  /* Hacer que las imágenes ocupen el 100% del ancho disponible dentro de cada fieldset */
-    max-width: 600px;  /* Limitar el tamaño máximo de la imagen */
-    height: auto;  /* Mantener la relación de aspecto */
-    margin: 0 auto;  /* Centrar la imagen dentro del fieldset */
+    width: 100%;  
+    max-width: 600px;  
+    height: auto;  
+    margin: 0 auto;  
     display: block; 
   }
   .fotitos fieldset {
-    width: 100%;  /* Que ocupe el 100% del ancho disponible */
-    max-width: 1000px;  /* Limitar el ancho de los fieldset */
-    margin: 1rem auto;  /* Espaciado entre cada fieldset y centrado */
+    width: 100%;  
+    max-width: 1000px; 
+    margin: 1rem auto;  
     padding: 1rem;
     border: 2px solid #ddd;
     background-color: #fff;
