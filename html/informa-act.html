@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
     <title>Informa tu actividad</title>
+    <link rel="stylesheet" href="../css/informa-act.css">
 </head>
 <body>
     <h1>Informa una actividad</h1>
     <div class="main-container">
-
         <div id="val-box" hidden>
             <h2 id="val-msg"></h2>
             <ul id="val-list"></ul>
@@ -15,15 +15,19 @@
         <form class="formulario" id="info-act-form" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>¿Dónde?</legend>
-                <label for="region">Seleccione una región</label>
-                <select id="region" name="region" required >
-                    <option value="">--Selecciona Región--</option>
-                </select>
+                <div class="grupo-input">
+                    <label for="region">Seleccione una región</label>
+                    <select id="region" name="region" required >
+                        <option value="">--Selecciona Región--</option>
+                    </select>
+                </div>
                 <br>
-                <label for="comuna">Seleccione una comuna</label>
-                <select id="comuna" name="comuna"  required>
-                    <option value="">--Selecciona Comuna--</option>
-                </select>
+                <div class="grupo-input">
+                    <label for="comuna">Seleccione una comuna</label>
+                    <select id="comuna" name="comuna"  required>
+                        <option value="">--Selecciona Comuna--</option>
+                    </select>
+                </div>
                 <br>
                 <div id="sector-input" class="grupo-input">
                     <label for="sector">Sector</label>
@@ -33,7 +37,7 @@
             <fieldset>
                 <legend>¿Quien organiza?</legend>
                 <div id="nombre-input" class="grupo-input">
-                    <label for="nombre">Nombre</label>
+                    <label>Nombre</label>
                     <input id="nombre" name="nombre" type="text" maxlength="200" required>
                 </div>
                 <br>
@@ -47,20 +51,38 @@
                     <input id="numero" name="numero" type="tel" maxlength="100">
                 </div>
                 <br>
-                <div id="contactos" >
+                <div id="contactos">
                     <label for="contacto">Contactar por: </label><br>
-                    <input type="checkbox" name="whatsapp" onclick="revisaCheck(this);"> WhatsApp
-                    <input id="whatsapp" type="text" name="whatsapp-id" style="display:none;" minlength="4" maxlength="50"> <br>
-                    <input type="checkbox" name="instagram" onclick="revisaCheck(this);"> Instagram
-                    <input id="instagram" type="text" name="instagram-id" style="display:none;" minlength="4" maxlength="50"><br>
-                    <input type="checkbox" name="tiktok" onclick="revisaCheck(this);"> TikTok
-                    <input id="tiktok" type="text" name="tiktok-id" style="display:none;" minlength="4" maxlength="50"><br>
-                    <input type="checkbox" name="telegram" onclick="revisaCheck(this);"> Telegram
-                    <input id="telegram" type="text" name="telegram-id" style="display:none;" minlength="4" maxlength="50"><br>
-                    <input type="checkbox" name="x" onclick="revisaCheck(this);"> X
-                    <input id="x" type="text" name="x-id" style="display:none;" minlength="4" maxlength="50"><br>
-                    <input type="checkbox" name="otro" onclick="revisaCheck(this);"> Otro
-                    <input id="otro" type="text" name="otro-id" style="display:none;" minlength="4" maxlength="50">
+                    <div class="contacto">
+                        <input type="checkbox" name="whatsapp" onclick="revisaCheck(this);"> 
+                        <label >WhatsApp</label>
+                        <input id="whatsapp-id" type="text" name="whatsapp" style="display:none;" minlength="4" maxlength="50"><br>
+                    </div>
+                    <div class="contacto">
+                        <input type="checkbox" name="instagram" onclick="revisaCheck(this);">
+                        <label>Instagram</label>
+                        <input id="instagram-id" type="text" name="instagram" style="display:none;" minlength="4" maxlength="50"><br>
+                    </div>
+                    <div class="contacto">
+                        <input type="checkbox" name="tiktok" onclick="revisaCheck(this);"> 
+                        <label>TikTok</label>
+                        <input id="tiktok-id" type="text" name="tiktok" style="display:none;" minlength="4" maxlength="50"><br>
+                    </div>
+                    <div class="contacto">
+                        <input type="checkbox" name="telegram" onclick="revisaCheck(this);"> 
+                        <label>Telegram</label>
+                        <input id="telegram-id" type="text" name="telegram" style="display:none;" minlength="4" maxlength="50"><br>
+                    </div>
+                    <div class="contacto">
+                        <input type="checkbox" name="x" onclick="revisaCheck(this);"> 
+                        <label>X</label>
+                        <input id="x-id" type="text" name="x" style="display:none;" minlength="4" maxlength="50"><br>
+                    </div>
+                    <div class="contacto">
+                        <input type="checkbox" name="otro" onclick="revisaCheck(this);">
+                        <label>Otro</label>
+                        <input id="otro-id" type="text" name="otro" style="display:none;" minlength="4" maxlength="50"><br>
+                    </div>
                 </div>
                 <br>
                 
@@ -77,51 +99,53 @@
                     <input id="fechayhoraf" name="fechayhoraf" type="datetime-local">
                 </div>
                 <br>
-                <div id="descripcion-input" class="grupo-input">
-                    <label for="descripcion">Descripción</label>
-                    <textarea name="" id="descripcion-text-area" cols="50" rows="10"></textarea>
+                <div id="descripcion-input" class="descripcion">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea name="descripcion" id="descripcion-text-area" cols=50 rows=10></textarea>
                 </div>
                 <div id="tema" >
                     <label for="tema">Tema: </label>
-                    <input type="checkbox" name="musica" onclick="revisaCheck(this);"> Música
+                    <input type="checkbox" name="musica" onclick="revisaCheck(this);"> Música 
                     <input type="checkbox" name="deporte" onclick="revisaCheck(this);"> Deporte                    
                     <input type="checkbox" name="ciencias" onclick="revisaCheck(this);"> Ciencias                    
                     <input type="checkbox" name="religion" onclick="revisaCheck(this);"> Religión                  
-                    <input type="checkbox" name="politica" onclick="revisaCheck(this);"> Política                   
+                    <input type="checkbox" name="politica" onclick="revisaCheck(this);"> Política  <br>                 
                     <input type="checkbox" name="tecnologia" onclick="revisaCheck(this);"> Tecnología                   
                     <input type="checkbox" name="juegos" onclick="revisaCheck(this);"> Juegos                   
                     <input type="checkbox" name="baile" onclick="revisaCheck(this);"> Baile                   
                     <input type="checkbox" name="comida" onclick="revisaCheck(this);"> Comida
-                    <input type="checkbox" name="otro-tema" onclick="mostrarInputOtro(this)";"> Otro
-                    <input id="otro-tema" type="text" name="otro-tema-id" style="display:none;" minlength="3" maxlength="15">
+                    <input type="checkbox" name="otro-tema" onclick="mostrarInputOtro(this);"> Otro
+                    <input id="otro-tema-id" type="text" name="otro-tema-input" style="display:none;" minlength="3" maxlength="15">
                 </div>
                 
                 <br>
-                <div id="fotos">
+                <div class="grupo-input">
                     <label for="files">Fotos</label>
                     <div class="foto-input">
-                        <input type="file" name="foto[]" accept="image/*" required>
+                        <input id="fotos1" type="file" name="foto[]" accept="image/*" required>
                     </div>
                     <div class="foto-input" style="display:none;">
-                        <input type="file" name="foto[]" accept="image/*">
+                        <input id="fotos2" type="file" name="foto[]" accept="image/*">
                     </div>
                     <div class="foto-input" style="display:none;">
-                        <input type="file" name="foto[]" accept="image/*">
+                        <input id="fotos3" type="file" name="foto[]" accept="image/*">
                     </div>
                     <div class="foto-input" style="display:none;">
-                        <input type="file" name="foto[]" accept="image/*">
+                        <input id="fotos4" type="file" name="foto[]" accept="image/*">
                     </div>
                     <div class="foto-input" style="display:none;">
-                        <input type="file" name="foto[]" accept="image/*">
+                        <input id="fotos5" type="file" name="foto[]" accept="image/*">
                     </div>
                     <button type="button" id="agregar-foto-btn" onclick="mostrarSiguienteInput()">Agregar otra foto</button>
                 </div>
             </fieldset>
-            <button id="submit-btn" type="button">Agregar actividad</button>
+            <div class="boton-container">
+                <button id="submit-btn" type="submit">Agregar actividad</button>
+            </div>
         </form>
     </div>
-    <script lang="javascript" src="/js/select.js"></script>
-    <script lang="javascript" src="/js/informa-act.js"></script>
+    <script src="/js/select.js"></script>
+    <script src="/js/informa-act.js"></script>
     
 </body>
 </html>
