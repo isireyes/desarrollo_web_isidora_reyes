@@ -1,7 +1,7 @@
 import re
 import filetype
 import html
-import datetime
+from datetime import datetime
 def sanitize_input(text):
     if not isinstance(text, str):
         return ""
@@ -85,7 +85,7 @@ def valida_tema(temas, otro_tema=None):
             return False
     return True
 
-def valida_region(region):
+def valida_region(region): 
     return region is not None and region != ""
 
 

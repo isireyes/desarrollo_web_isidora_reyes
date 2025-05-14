@@ -7,7 +7,7 @@ const validateName = (name) => {
   };
 
   const validateSector = (sector) => {
-    if(!sector) return false;
+    if(!sector) return true;
     let lengthValid = sector.trim().length <=100;
     
     return lengthValid;
@@ -43,9 +43,15 @@ const validateDatetimef = (fechahorai, fechahoraf) => {
 const validateContacto = () => {
     const contactosMarcados = document.querySelectorAll('#contactos input[type="checkbox"]:checked');
     if (contactosMarcados.length === 0) return true;
+
     for (const checkbox of contactosMarcados) {
-        const idInput = `${checkbox.name}-id`; 
+        const red = checkbox.name.replace("contacto_", "");
+        const idInput = `${red}-id`; 
         const inputTexto = document.getElementById(idInput);
+        if (!inputTexto) {
+            console.error(`No se encontró el input con id="${idInput}"`);
+            return false;
+        }
         if (inputTexto.style.display !== "none") {
             const valor = inputTexto.value.trim();
             if (valor.length < 4 || valor.length > 50) {
@@ -53,7 +59,6 @@ const validateContacto = () => {
             }
         }
     }
-    
     return true;
 };
 
@@ -133,14 +138,17 @@ document.getElementById("fechayhorai").addEventListener("change", fechahorafinal
 
 
 /* funcion para que se pueda seleccionar máximo 5 contactos*/
-function revisaCheck(element){
-    const inputId = `${element.name}-id`; 
+function revisaCheck(element) {
+    const red = element.name.replace("contacto_", ""); 
+    const inputId = `${red}-id`; 
     const inputTexto = document.getElementById(inputId);
-    if (element.checked) {
-        inputTexto.style.display = "inline-block";
-    } else {
-        inputTexto.style.display = "none";
-        inputTexto.value = "";
+    if (inputTexto) {
+        if (element.checked) {
+            inputTexto.style.display = "inline-block";
+        } else {
+            inputTexto.style.display = "none";
+            inputTexto.value = "";
+        }
     }
     let checkboxes = document.querySelectorAll("#contactos input[type='checkbox']");
     let seleccionados = document.querySelectorAll("#contactos input[type='checkbox']:checked").length;
@@ -297,10 +305,12 @@ const validateForm = (event) => {
         validationMessageElem.innerHTML = "Hemos recibido su información. <br>¡Muchas gracias y suerte con su actividad!";
             submitButton.style.display = "none";
             backButton.textContent = "Volver al inicio";
-            backButton.onclick = () => {
-                window.location.href = "../html/portada.html";
-            };
-        });
+            backButton.disabled = true;
+
+            setTimeout(() => {
+                formulario.submit();
+             }, 1500); 
+     });
      
   
       let backButton = document.createElement("button");

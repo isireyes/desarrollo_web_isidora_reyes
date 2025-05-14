@@ -6,13 +6,22 @@
 </head>
 <body>
     <h1>Informa una actividad</h1>
+    {% if errores %}
+    <div class="errores" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
+        <ul>
+            {% for error in errores %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
     <div class="main-container">
         <div id="val-box" hidden>
             <h2 id="val-msg"></h2>
             <ul id="val-list"></ul>
         </div>
 
-        <form class="formulario" id="info-act-form" method="post" enctype="multipart/form-data">
+        <form class="formulario" id="info-act-form" action="/informa-act/" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend>¿Dónde?</legend>
                 <div class="grupo-input">
@@ -57,32 +66,32 @@
                 <div id="contactos">
                     <label>Contactar por: </label><br>
                     <div class="contacto">
-                        <input type="checkbox" name="whatsapp" onclick="revisaCheck(this);"> 
+                        <input type="checkbox" name="contacto_whatsapp" onclick="revisaCheck(this);"> 
                         <label >WhatsApp</label>
                         <input id="whatsapp-id" type="text" name="whatsapp" style="display:none;" minlength="4" maxlength="50"><br>
                     </div>
                     <div class="contacto">
-                        <input type="checkbox" name="instagram" onclick="revisaCheck(this);">
+                        <input type="checkbox" name="contacto_instagram" onclick="revisaCheck(this);">
                         <label>Instagram</label>
                         <input id="instagram-id" type="text" name="instagram" style="display:none;" minlength="4" maxlength="50"><br>
                     </div>
                     <div class="contacto">
-                        <input type="checkbox" name="tiktok" onclick="revisaCheck(this);"> 
+                        <input type="checkbox" name="contacto_tiktok" onclick="revisaCheck(this);"> 
                         <label>TikTok</label>
                         <input id="tiktok-id" type="text" name="tiktok" style="display:none;" minlength="4" maxlength="50"><br>
                     </div>
                     <div class="contacto">
-                        <input type="checkbox" name="telegram" onclick="revisaCheck(this);"> 
+                        <input type="checkbox" name="contacto_telegram" onclick="revisaCheck(this);"> 
                         <label>Telegram</label>
                         <input id="telegram-id" type="text" name="telegram" style="display:none;" minlength="4" maxlength="50"><br>
                     </div>
                     <div class="contacto">
-                        <input type="checkbox" name="x" onclick="revisaCheck(this);"> 
+                        <input type="checkbox" name="contacto_x" onclick="revisaCheck(this);"> 
                         <label>X</label>
                         <input id="x-id" type="text" name="x" style="display:none;" minlength="4" maxlength="50"><br>
                     </div>
                     <div class="contacto">
-                        <input type="checkbox" name="otro" onclick="revisaCheck(this);">
+                        <input type="checkbox" name="contacto_otro" onclick="revisaCheck(this);">
                         <label>Otro</label>
                         <input id="otro-id" type="text" name="otro" style="display:none;" minlength="4" maxlength="50"><br>
                     </div>

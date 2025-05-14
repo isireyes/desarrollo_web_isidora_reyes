@@ -35,7 +35,7 @@ class Actividad(Base):
     sector = Column(String(100))
     nombre = Column(String(200), nullable=False)
     email = Column(String(100), nullable=False)
-    telefono = Column(String(15))
+    celular = Column(String(15))
     dia_hora_inicio = Column(DateTime, nullable=False)
     dia_hora_termino = Column(DateTime)
     descripcion = Column(String(500))
