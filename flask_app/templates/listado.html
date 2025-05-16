@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Lista de Actividades</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/listado.css') }}">
+    </head>
+    <body>
+        <h1>Lista de Actividades</h1>
+        <div class="main-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Inicio</th>
+                        <th>Término</th>
+                        <th>Comuna</th>
+                        <th>Sector</th>
+                        <th>Tema</th>
+                        <th>Nombre Organizador</th>
+                        <th>Total Fotos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for actividad in actividades %}
+                <tr class="fila-actividad" data-id="{{ actividad.id }}">
+                    <td>{{ actividad.dia_hora_inicio.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ actividad.dia_hora_termino.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ actividad.comuna.nombre }}</td>
+                    <td>{{ actividad.sector }}</td>
+                    <td>
+                        {% for tema in actividad.temas %}
+                            {{ tema.tema }}{% if tema.glosa_otro %} ({{ tema.glosa_otro }}){% endif %}
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ actividad.nombre }}</td>
+                    <td>{{ actividad.foto | length }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+
+         <div class="paginacion">
+        {% if pagina_actual > 1 %}
+            <a href="{{ url_for('listado', pagina=pagina_actual-1) }}">← Anterior</a>
+        {% endif %}
+        <span>Página {{ pagina_actual }} de {{ total_paginas }}</span>
+        {% if pagina_actual < total_paginas %}
+            <a href="{{ url_for('listado', pagina=pagina_actual+1) }}">Siguiente →</a>
+        {% endif %}
+    </div>
+
+        <div class="boton-container">
+            <button type="button" id="btn-portada">Volver a Inicio</button>
+        </div>
+        <script src="{{ url_for('static', filename='js/listado.js') }}"></script>
+
+    </body>
+</html>
