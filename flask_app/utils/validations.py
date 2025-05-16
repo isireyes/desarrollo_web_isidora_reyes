@@ -5,7 +5,7 @@ from datetime import datetime
 def sanitize_input(text):
     if not isinstance(text, str):
         return ""
-    return re.sub(r'[<>]', '', text.strip())
+    return html.escape(text.strip())
 
 def valida_nombre(nombre):
     if not nombre:

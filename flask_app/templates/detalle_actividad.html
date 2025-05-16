@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Información de actividad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/actividades.css') }}">
+</head>
+<body>
+    <h1>Información de actividad</h1>
+    <div class="main-container">
+        <div class="infocontainer">
+            <fieldset>
+                <legend>¿Dónde?</legend>
+                <label>Región: {{ actividad.comuna.region.nombre }}</label><br>
+                <label>Comuna: {{ actividad.comuna.nombre }}</label><br>
+                <label>Sector: {{ actividad.sector or 'No especificado' }}</label><br>
+            </fieldset>
+            <fieldset>
+                <legend>¿Quién organiza?</legend>
+                <label>Nombre: {{ actividad.nombre }}</label><br>
+                <label>Email: {{ actividad.email }}</label><br>
+                <label>Número de celular: {{ actividad.celular or 'No informado' }}</label><br>
+                <label>Contactar por:</label><br>
+                <ul>
+                    {% for contacto in actividad.contactos %}
+                        <li>{{ contacto.nombre }}: {{ contacto.identificador }}</li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>¿Cuándo y de qué se trata?</legend>
+                <label>Fecha y hora de inicio: {{ actividad.dia_hora_inicio.strftime('%d-%m-%Y %H:%M') }}</label><br>
+                <label>Fecha y hora de término: 
+                    {% if actividad.dia_hora_termino %}
+                        {{ actividad.dia_hora_termino.strftime('%d-%m-%Y %H:%M') }}
+                    {% else %}
+                        No especificada
+                    {% endif %}
+                </label><br>
+                <label>Descripción: {{ actividad.descripcion or 'Sin descripción' }}</label><br>
+                <label>Tema:</label><br>
+                <ul>
+                    {% for tema in actividad.temas %}
+                        <li>
+                            {{ tema.tema }}
+                            {% if tema.tema == 'otro' and tema.glosa_otro %}
+                                - {{ tema.glosa_otro }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+        </div>
+
+        <div class="fotocontainer">
+            <fieldset>
+                <legend>Fotos</legend>
+                <div>
+                    {% if actividad.foto %}
+                        {% for foto in actividad.foto %}
+                            <img 
+                                src="{{ url_for('static', filename=foto.ruta_archivo.replace('static/', '').replace('\\', '/')) }}"
+                                alt="Foto {{ loop.index }}"
+                                class="thumbnail"
+                                onclick="openModal(this)">
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay fotos para esta actividad.</p>
+                    {% endif %}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" src="#" id="img01" alt="imagen ampliada">
+    </div>
+
+    <div class="boton-container">
+        <button type="button" id="btn-listado">Volver a Listado</button>
+        <button type="button" id="btn-portada">Volver a Inicio</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/abrefoto.js') }}"></script>
+</body>
+</html>

@@ -39,18 +39,19 @@ h2 {
     margin: 40px 0;
 }
 
-.botones-container button {
+.botones-container a {
+    display: inline-block;
     padding: 10px 20px;
     font-size: 1.2rem;
     cursor: pointer;
-    border: none;
+    text-decoration: none;
     background-color: #3f5213;
     color: white;
     border-radius: 5px;
 }
 
-.botones-container button:hover {
-    background-color: #2f3d0f; 
+.botones-container a:hover {
+    background-color: #2f3d0f;
 }
 
 table {

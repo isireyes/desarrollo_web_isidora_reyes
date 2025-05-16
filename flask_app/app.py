@@ -1,11 +1,13 @@
-from flask import Flask, request, render_template, redirect, url_for, session, jsonify
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify,abort
 from database.db import Region, Comuna, Actividad, Contacto, Tema, Foto
 from database.db import SessionLocal
 from database import db
+from sqlalchemy.orm import joinedload
 from werkzeug.utils import secure_filename
 import hashlib
 import filetype
 import os
+from math import ceil
 from datetime import datetime
 from utils.validations import ( valida_nombre, valida_sector, valida_email, valida_numero_telefono, 
                                valida_fechayhora, valida_contactos, valida_max_contactos, validate_conf_img,
@@ -15,13 +17,49 @@ app = Flask(__name__)
 app.secret_key = "s3cr3t_k3y"
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-@app.route('/portada/', methods = ['GET', 'POST'])
+@app.route('/', methods = ['GET', 'POST'])
 def portada():
-    return render_template('portada.html')
+    with SessionLocal() as session:
+        actividades = (
+            session.query(Actividad)
+            .options(
+                joinedload(Actividad.comuna),
+                joinedload(Actividad.temas),
+                joinedload(Actividad.foto)
+            )
+            .order_by(Actividad.id.desc()) 
+            .limit(5)
+            .all()
+        )
+    return render_template('portada.html', actividades=actividades)
+
+
 
 @app.route('/listado/', methods = ['GET', 'POST'])
 def listado():
-    return render_template('listado.html')
+    por_pagina = 5
+    pagina_actual = request.args.get("pagina", default=1, type=int)
+    with SessionLocal() as session:
+        actividades_query = session.query(Actividad).options(joinedload(Actividad.comuna))
+        total_actividades = actividades_query.count()
+        total_paginas = (total_actividades + por_pagina - 1) // por_pagina
+        actividades = actividades_query.order_by(Actividad.id.desc())\
+                                       .offset((pagina_actual - 1) * por_pagina)\
+                                       .limit(por_pagina)\
+                                       .all()
+        return render_template("listado.html",
+                               actividades=actividades,
+                               pagina_actual=pagina_actual,
+                               total_paginas=total_paginas)
+@app.route('/actividad/<int:id>')
+def detalle_actividad(id):
+    session = SessionLocal()
+    actividad = session.query(Actividad).filter_by(id=id).first()
+    if actividad is None:
+        abort(404)
+    
+    return render_template('detalle_actividad.html', actividad=actividad)
+
 
 
 @app.route('/get_comunas/<int:region_id>')
@@ -73,19 +111,7 @@ def informa_act():
             errores.append("Debe seleccionar al menos un tema válido. Si usó 'Otro', escriba una glosa válida.")
         if not all(validate_conf_img(f) for f in fotos if f.filename):
             errores.append("Una o más imágenes no son válidas.")
-        """ validaciones =all([
-            valida_nombre(request.form.get("nombre")),
-            valida_sector(request.form.get("sector")),
-            valida_email((request.form.get("email"))),
-            valida_numero_telefono(request.form.get("numero")),
-            valida_fechayhora(request.form.get("fechayhorai"), request.form.get("fechayhoraf")),
-            validate_descripcion(request.form.get("descripcion")),
-            valida_comuna(request.form.get("comuna")),
-            valida_contactos(contactos),
-            valida_max_contactos(contactos),
-            valida_tema(temas + (["otro"] if "otro-tema" in request.form else []), otro_tema),
-            all(validate_conf_img(f) for f in fotos if f.filename)
-        ]) """
+        
         if not errores:
             actividad = Actividad(
                 comuna_id= request.form.get("comuna"),
