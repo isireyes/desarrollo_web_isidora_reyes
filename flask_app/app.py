@@ -3,12 +3,14 @@ from database.db import Region, Comuna, Actividad, Contacto, Tema, Foto
 from database.db import SessionLocal
 from database import db
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func, extract
 from werkzeug.utils import secure_filename
 import hashlib
+from flask_cors import cross_origin
 import filetype
 import os
 from math import ceil
-from datetime import datetime
+from datetime import datetime, time
 from utils.validations import ( valida_nombre, valida_sector, valida_email, valida_numero_telefono, 
                                valida_fechayhora, valida_contactos, valida_max_contactos, validate_conf_img,
                                valida_tema, valida_region, valida_comuna, sanitize_input, validate_descripcion)
@@ -159,13 +161,71 @@ def informa_act():
     return render_template('informa-act.html', regiones=regiones)
 
        
-
-#@app.route('/informa-act', methods = ['GET', 'POST'])
-#def informa_act():
-#    return render_template('informa-act.html')
-@app.route('/estadistica/', methods = ['GET', 'POST'])
+@app.route('/estadistica', methods = ['GET'])
 def estadistica():
     return render_template('estadistica.html')
+
+@app.route("/get-stats-data1", methods=["GET"])
+
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_stats_data1():
+    session = SessionLocal()
+    result = session.query(
+        Actividad.dia_hora_inicio, func.count()
+    ).group_by(Actividad.dia_hora_inicio).all()
+
+    data = [{'fecha': r[0].strftime('%Y-%m-%d'), 'cantidad': r[1]} for r in result]
+    session.close()
+    return jsonify(data)
+
+
+@app.route("/get-stats-data2", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_stats_data2():
+    session = SessionLocal()
+    result = session.query(
+        Tema.tema, func.count()
+    ).group_by(Tema.tema).all()
+
+    data = [{"name": tema, "y": cantidad} for tema, cantidad in result]
+    session.close()
+    return jsonify(data)
+
+
+
+@app.route("/get-stats-data3", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_stats_data3():
+    session = SessionLocal()
+    actividades = session.query(Actividad).all()
+
+    # Inicializar datos
+    meses = {m: {"mañana": 0, "mediodía": 0, "tarde": 0} for m in range(1, 13)}
+
+    for act in actividades:
+        fecha = act.dia_hora_inicio
+        if not fecha:
+            continue  # evitar errores con datos nulos
+
+        mes = fecha.month
+        hora = fecha.hour
+
+        if hora < 12:
+            franja = "mañana"
+        elif hora < 18:
+            franja = "mediodía"
+        else:
+            franja = "tarde"
+
+        meses[mes][franja] += 1
+
+    response = {
+        "mañana": [meses[m]["mañana"] for m in range(1, 13)],
+        "mediodía": [meses[m]["mediodía"] for m in range(1, 13)],
+        "tarde": [meses[m]["tarde"] for m in range(1, 13)],
+    }
+
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True)
