@@ -6,7 +6,7 @@ function cargarComentarios() {
       if (!response.ok) {
         throw new Error("No se pudo obtener los comentarios");
       }
-      return response.json();  // 
+      return response.json();  
     })
     .then(data => {
       const comentariosDiv = document.getElementById("comentarios-lista");
