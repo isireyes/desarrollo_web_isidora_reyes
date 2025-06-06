@@ -1,9 +1,9 @@
 from flask import Flask, request, render_template, redirect, url_for, session, jsonify,abort
-from database.db import Region, Comuna, Actividad, Contacto, Tema, Foto
+from database.db import Region, Comuna, Actividad, Contacto, Tema, Foto, Comentario
 from database.db import SessionLocal
 from database import db
 from sqlalchemy.orm import joinedload
-from sqlalchemy import func, extract
+from sqlalchemy import func, cast, Date
 from werkzeug.utils import secure_filename
 import hashlib
 from flask_cors import cross_origin
@@ -166,15 +166,18 @@ def estadistica():
     return render_template('estadistica.html')
 
 @app.route("/get-stats-data1", methods=["GET"])
-
 @cross_origin(origin="127.0.0.1", supports_credentials=True)
 def get_stats_data1():
     session = SessionLocal()
     result = session.query(
-        Actividad.dia_hora_inicio, func.count()
-    ).group_by(Actividad.dia_hora_inicio).all()
-
-    data = [{'fecha': r[0].strftime('%Y-%m-%d'), 'cantidad': r[1]} for r in result]
+    cast(Actividad.dia_hora_inicio, Date),  # Extrae solo la parte de la fecha (sin hora)
+    func.count()
+    ).group_by(
+        cast(Actividad.dia_hora_inicio, Date)
+        ).all()
+    print("RAW RESULT:", result)
+    data = [{'date': r[0].strftime('%Y-%m-%d'), 'cantidad': r[1]} for r in result]
+    print("DATA SENT:", data)
     session.close()
     return jsonify(data)
 
@@ -226,6 +229,42 @@ def get_stats_data3():
     }
 
     return jsonify(response)
+
+
+def obtener_comentarios(actividad_id):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter_by(actividad_id=actividad_id).order_by(Comentario.fecha.desc()).all()
+    data = []
+    for comentario in comentarios:
+        data.append({
+            "nombre": comentario.nombre,
+            "texto": comentario.texto,
+            "fecha": comentario.fecha.strftime('%Y-%m-%d %H:%M')
+        })
+    session.close()
+    return jsonify(data)
+
+@app.route("/agregar-comentario", methods=["POST"])
+def agregar_comentario():
+    data = request.get_json()
+    nombre = data.get("nombre", "").strip()
+    texto = data.get("texto", "").strip()
+    actividad_id = data.get("actividad_id")
+
+    if not (3 <= len(nombre) <= 80):
+        return jsonify({"success": False, "error": "Nombre debe tener entre 3 y 80 caracteres."})
+    if len(texto) < 5:
+        return jsonify({"success": False, "error": "Comentario debe tener al menos 5 caracteres."})
+
+    session = SessionLocal()
+    nuevo = Comentario(nombre=nombre, texto=texto, fecha=datetime.now(), actividad_id=actividad_id)
+    session.add(nuevo)
+    session.commit()
+    session.close()
+    return jsonify({"success": True})
+@app.route("/comentarios/<int:actividad_id>")
+def comentarios_por_actividad(actividad_id):
+    return obtener_comentarios(actividad_id)
 
 if __name__ == '__main__':
     app.run(debug=True)

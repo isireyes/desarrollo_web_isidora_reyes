@@ -1,16 +1,23 @@
-let btnportada = document.getElementById("btn-portada")
-btnportada.addEventListener("click", function(){
-    window.location.href ="../html/portada.html";
-  });
-
+document.getElementById("btn-portada").addEventListener("click", () => {
+    window.location.href = "/";
+});
 
 fetch("/get-stats-data1")
   .then(res => res.json())
   .then(data => {
     const parsedData = data.map(item => {
-      const [year, month, day] = item.fecha.split("-");
-      return [Date.UTC(year, month - 1, day), item.cantidad];
+      const [year, month, day] = item.date
+      .split("-")
+      .map((part) => parseInt(part, 10));
+      return [
+        Date.UTC(year, month - 1, day), 
+        item.cantidad,
+      ];
     });
+    parsedData.sort((a, b) => a[0] - b[0]);
+    const container = document.getElementById("grafico-lineas");
+    container.innerHTML = "";
+    
 
     Highcharts.chart("grafico-lineas", {
       chart: { type: "line" },

@@ -76,10 +76,33 @@
         <img class="modal-content" src="#" id="img01" alt="imagen ampliada">
     </div>
 
+    <div class = "comentarioscontainer">
+        <fieldset>
+            <legend>Comentarios</legend>
+            <form id="comentario-form">
+                <label for="nombre">Nombre:</label><br>
+                <input type="text" id="nombre" name="nombre" required minlength="3" maxlength="80"><br><br>
+                <label for="texto">Comentario:</label><br>
+                <textarea id="texto" name="texto" rows="4" cols="50" required minlength="5"></textarea><br><br>
+                <input type="submit" value="Agregar comentario">
+            </form>
+            <div id="comentarios-lista" data-actividad-id="{{ actividad.id }}"></div>
+            <p id="comentario-error" style="color: red;"></p>
+        </fieldset>
+
+
+
+    </div>
+
     <div class="boton-container">
         <button type="button" id="btn-listado">Volver a Listado</button>
         <button type="button" id="btn-portada">Volver a Inicio</button>
     </div>
+    <script>
+        const actividadId = parseInt("{{ actividad.id }}");
+    </script>
+    <script src="{{ url_for('static', filename='js/comentarios.js') }}"></script>
+
 
     <script src="{{ url_for('static', filename='js/abrefoto.js') }}"></script>
 </body>

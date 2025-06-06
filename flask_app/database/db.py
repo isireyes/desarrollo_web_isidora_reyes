@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, BigInteger,String, ForeignKey, DateTime
+from sqlalchemy import create_engine, Column, Integer, BigInteger,String, ForeignKey, DateTime, TIMESTAMP
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 DB_NAME= "tarea2"
@@ -44,6 +44,8 @@ class Actividad(Base):
     contactos = relationship('Contacto', back_populates='actividad', cascade="all, delete-orphan")
     temas = relationship('Tema', back_populates='actividad', cascade="all, delete-orphan")
     foto = relationship('Foto', back_populates='actividad', cascade="all, delete-orphan")
+    comentario = relationship('Comentario', back_populates='actividad', cascade="all, delete-orphan")
+
 
 class Contacto(Base):
     __tablename__ = 'contactar_por'
@@ -71,6 +73,17 @@ class Foto(Base):
     actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
 
     actividad = relationship('Actividad', back_populates='foto')
+
+class Comentario(Base):
+    __tablename__='comentario'
+    id= Column(Integer, primary_key=True)
+    nombre = Column(String(80), nullable=False)
+    texto = Column(String(300), nullable=False)
+    fecha = Column(TIMESTAMP, nullable=False)
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
+
+    actividad = relationship('Actividad', back_populates='comentario')
+
 
 
 
