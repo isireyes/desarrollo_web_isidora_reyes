@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vive Tu Sector </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/portada.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="left">
+                <h1> VIVE TU SECTOR</h1>
+                <h2> BIENVENIDOS</h2>
+                <div class="botones-container">
+                    <ul>
+                        <li><a href="{{ url_for('informa_act') }}" id="btn-agrega-act">Agregar actividad</a></li>
+                        <li><a href="{{ url_for('listado') }}" id="btn-listado">Ver listado</a></li>
+                        <li><a href="{{ url_for('estadistica') }}" id="btn-estadistica">Ver estadística</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="right">
+                <table>
+                    <caption>Ultimas actividades agregadas</caption>
+                    <thead>
+                        
+                        <tr>
+                            <th>Inicio</th>
+                            <th>Término</th>
+                            <th>Comuna</th>
+                            <th>Sector</th>
+                            <th>Tema</th>
+                            <th>Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for actividad in actividades %}
+                <tr class="fila-actividad" data-id="{{ actividad.id }}">
+                    <td>{{ actividad.dia_hora_inicio.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ actividad.dia_hora_termino.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ actividad.comuna.nombre }}</td>
+                    <td>{{ actividad.sector }}</td>
+                    <td>
+                        {% for tema in actividad.temas %}
+                            {{ tema.tema }}{% if tema.glosa_otro %} ({{ tema.glosa_otro }}){% endif %}
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <img src="{{ url_for('static', filename='uploads/' ~ actividad.foto[0].nombre_archivo) }}" alt="Foto actividad" width="80">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+
+                </table>
+
+
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/portada.js') }}"></script>    
+    </body>
+
+
+
+
+
+
+
+</html>
